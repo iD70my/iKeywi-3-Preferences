@@ -254,32 +254,32 @@
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-	CGFloat scrollOffset = scrollView.contentOffset.y;
-    topFrame = CGRectMake(0, scrollOffset, 320, -scrollOffset);
-    //NSLog(@"%f",scrollOffset);
-    if (scrollOffset < -213)
-    {
-    	self.bannerImage.image = [self imageForSize:CGSizeMake(topFrame.size.width,topFrame.size.height) withSelector:@selector(drawBanner)];
-	    [self.bannerImage setFrame:topFrame];
-	    [logoImage setFrame:CGRectMake(42,topFrame.size.height/2,50,50)];
-	    [iKeywiLabel setFrame:CGRectMake(106,topFrame.size.height/2-14,200,80)];
-	    [footerLabel setFrame:CGRectMake(0,topFrame.size.height/2+35,320,50)];
-	    footerLabel.textAlignment = NSTextAlignmentCenter;
-    }
+// - (void)scrollViewDidScroll:(UIScrollView *)scrollView
+// {
+// 	CGFloat scrollOffset = scrollView.contentOffset.y;
+//     topFrame = CGRectMake(0, scrollOffset, 320, -scrollOffset);
+//     //NSLog(@"%f",scrollOffset);
+//     if (scrollOffset < -213)
+//     {
+//     	self.bannerImage.image = [self imageForSize:CGSizeMake(topFrame.size.width,topFrame.size.height) withSelector:@selector(drawBanner)];
+// 	    [self.bannerImage setFrame:topFrame];
+// 	    [logoImage setFrame:CGRectMake(42,topFrame.size.height/2,50,50)];
+// 	    [iKeywiLabel setFrame:CGRectMake(106,topFrame.size.height/2-14,200,80)];
+// 	    [footerLabel setFrame:CGRectMake(0,topFrame.size.height/2+35,320,50)];
+// 	    footerLabel.textAlignment = NSTextAlignmentCenter;
+//     }
     
-    if (scrollOffset > -167 && scrollOffset < -116 && scrollOffset != -150)
-    {
-    	[titleLabel setText:@"iKeywi 2"];
-    	float alphaDegree = -116 - scrollOffset;
-    	[titleLabel setAlpha:1/alphaDegree];
-    }
-    else if ( scrollOffset >= -116)
-    	[titleLabel setAlpha:1];
-   	else if (scrollOffset < -167)
-	   	[titleLabel setAlpha:0];
-}
+//     if (scrollOffset > -167 && scrollOffset < -116 && scrollOffset != -150)
+//     {
+//     	[titleLabel setText:@"iKeywi 2"];
+//     	float alphaDegree = -116 - scrollOffset;
+//     	[titleLabel setAlpha:1/alphaDegree];
+//     }
+//     else if ( scrollOffset >= -116)
+//     	[titleLabel setAlpha:1];
+//    	else if (scrollOffset < -167)
+// 	   	[titleLabel setAlpha:0];
+// }
 //=============================================================================
 - (void)shareiKeywi
 {
