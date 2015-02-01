@@ -1,4 +1,4 @@
-iKeywi 2 Preferences
+iKeywi 3 Preferences
 ================
 * A preference bundle example for iOS tweaks
 
