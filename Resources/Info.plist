@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>iKeywi2</string>
+	<string>iKeywi3</string>
 	<key>CFBundleIdentifier</key>
-	<string>tw.hiraku.ikeywi2</string>
+	<string>tw.hiraku.ikeywi3</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -23,6 +23,6 @@
 	<key>MinimumOSVersion</key>
 	<string>3.0</string>
 	<key>NSPrincipalClass</key>
-	<string>iKeywi2ListController</string>
+	<string>iKeywi3ListController</string>
 </dict>
 </plist>

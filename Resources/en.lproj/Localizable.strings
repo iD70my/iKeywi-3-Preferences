@@ -9,7 +9,7 @@
 	"FOUND_IKEYWI_SETTINGS" = "Found iKeywi 1 Settings";
 	"FOUND_IKEYWI_SETTINGS_MESSAGE" = "iKeywi 1 settings file exists. Would you like to import it now?";
 	HELP = Help;
-	"IKEYWI_SHARE_TEXT" = "I'm using #iKeywi 2 to add customizable keys to my iPhone's keyboard! ";
+	"IKEYWI_SHARE_TEXT" = "I'm using #iKeywi 3 to add customizable keys to my iPhone's keyboard! ";
 	IMPORT = Import;
 	"IMPORT_SETTINGS" = "Import Settings";
 	"IMPORT_SETTINGS_MESSAGE" = "All custom keys and settings will be imported from iKeywi 1. Would you like to continue?";

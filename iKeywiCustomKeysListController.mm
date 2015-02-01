@@ -1,4 +1,4 @@
-#import "iKeywi2.h"
+#import "iKeywi3.h"
 
 @interface iKeywiCustomKeysListController : PSListController <UITextFieldDelegate>
 {
@@ -31,8 +31,8 @@
     window = [UIApplication sharedApplication].keyWindow;
     if (window == nil)
         window = [[UIApplication sharedApplication].windows firstObject];
-    if ([window respondsToSelector:@selector(tintColor)])
-        window.tintColor = UIColorFromRGB(0xFAAB26);
+    // if ([window respondsToSelector:@selector(tintColor)])
+        // window.tintColor = iKeywiColor;
 }
 
 - (void)loadView
@@ -49,7 +49,7 @@
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.adjustsFontSizeToFitWidth = YES;
         navigationItem.titleView = titleLabel;
-        titleLabel.textColor = iKeywiColor;
+        // titleLabel.textColor = iKeywiColor;
     }
     
     navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:iKeywiLocalizedString(@"HELP") style:UIBarButtonItemStyleBordered target:self action:@selector(addModalBackground)]; 
@@ -70,7 +70,9 @@
     }
     if (!viewExists)
     {
-        modalBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, window.frame.size.width, window.frame.size.height)];
+        float maxSize = window.frame.size.width > window.frame.size.height ? window.frame.size.width : window.frame.size.height;
+        float minSize = window.frame.size.width < window.frame.size.height ? window.frame.size.width : window.frame.size.height;
+        modalBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maxSize, maxSize)];
         [window addSubview:modalBackground];
         modalBackground.backgroundColor = [UIColor blackColor];
         modalBackground.alpha = 0.4;
@@ -79,7 +81,7 @@
         [self playMovies];
 
         closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _4inch ? closeButton.frame = CGRectMake(280,568/2-90,30,30) : closeButton.frame = CGRectMake(280,480/2-90,30,30);
+        closeButton.frame = CGRectMake((minSize-270)/2+270-15,maxSize/2-90,30,30);
         UIImage* closeImage = [self imageForSize:CGSizeMake(30,30) withSelector:@selector(drawCloseButton)];
         [closeButton setBackgroundImage:closeImage forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(closeVideo) forControlEvents:UIControlEventTouchUpInside];
@@ -89,14 +91,15 @@
 
 - (void)playMovies
 {
-    NSURL *sourceMovieURL = [NSURL fileURLWithPath:@"/Library/PreferenceBundles/iKeywi2.bundle/iKeywiHelp.mp4"];
- 
+    NSURL *sourceMovieURL = [NSURL fileURLWithPath:@"/Library/PreferenceBundles/iKeywi3.bundle/iKeywiHelp.mp4"];
+    float maxSize = window.frame.size.width > window.frame.size.height ? window.frame.size.width : window.frame.size.height;
+    float minSize = window.frame.size.width < window.frame.size.height ? window.frame.size.width : window.frame.size.height;
     AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:sourceMovieURL options:nil];
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
     player = [AVPlayer playerWithPlayerItem:playerItem];
     playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
 
-    _4inch ? playerLayer.frame = CGRectMake(25,568/2-75,270,150) : playerLayer.frame = CGRectMake(25,480/2-75,270,150);
+    _4inch ? playerLayer.frame = CGRectMake((minSize-270)/2,maxSize/2-75,270,150) : playerLayer.frame = CGRectMake((minSize-270)/2,maxSize/2-75,270,150);
     playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:@"AVPlayerItemDidPlayToEndTimeNotification" object:[player currentItem]];
@@ -104,7 +107,7 @@
     [window.layer addSublayer:playerLayer];
     
     descriptionLabel = [[UILabel alloc] init];
-    isRepresentationLabel ? descriptionLabel.frame = CGRectMake(110, playerLayer.frame.origin.y+17, 210, 50) : descriptionLabel.frame = CGRectMake(100, playerLayer.frame.origin.y+25, 210, 50);
+    isRepresentationLabel ? descriptionLabel.frame = CGRectMake((minSize-270)/2+85, playerLayer.frame.origin.y+17, 210, 50) : descriptionLabel.frame = CGRectMake((minSize-270)/2+75, playerLayer.frame.origin.y+25, 210, 50);
     descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
     descriptionLabel.textColor = iKeywiColor;
     descriptionLabel.backgroundColor = [UIColor clearColor];

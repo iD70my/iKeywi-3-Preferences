@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APPLY</key>
+	<string>Übernehmen</string>
+	<key>CANCEL</key>
+	<string>Abbrechen</string>
+	<key>CAPITAL_KEYPAD</key>
+	<string>Großbuchstaben</string>
+	<key>CONFIRM</key>
+	<string>Bestätigen</string>
+	<key>CUSTOMIZABLE_EXTRA_KEYS_FOR_ALL_LANGUAGES</key>
+	<string>Veränderbare Zusatztasten für alle Sprachen</string>
+	<key>DISPLAYMENT_LABEL</key>
+	<string>← Tastenanzeige</string>
+	<key>ENABLED</key>
+	<string>Aktiviert</string>
+	<key>FOUND_IKEYWI_SETTINGS</key>
+	<string>iKeywi 1 Einstellungen gefunden </string>
+	<key>FOUND_IKEYWI_SETTINGS_MESSAGE</key>
+	<string>iKeywi 1 Einstellungen vorhanden. Sollen diese importiert werden?</string>
+	<key>HELP</key>
+	<string>Hilfe</string>
+	<key>IKEYWI_SHARE_TEXT</key>
+	<string>Ich benutze #iKeywi 3 für Extratasten auf meiner iPhone-Tastatur!</string>
+	<key>IMPORT</key>
+	<string>Importieren</string>
+	<key>IMPORT_SETTINGS</key>
+	<string>Import-Einstellungen</string>
+	<key>IMPORT_SETTINGS_MESSAGE</key>
+	<string>Alle Tasten und Einstellungen von iKeywi werden übernommen. Fortfahren?</string>
+	<key>KEYS_ONLY_AVAILABLE_FOR_SOME_LANG</key>
+	<string>Taste 11 und 12 sind nur bei bestimmten Sprachen verfügbar.</string>
+	<key>KEY_DISPLAYMENT_DETAIL</key>
+	<string>Die Tastenanzeige ist der Text, der auf der Taste angezeigt wird. Standardmäßig ist das das Ausgangszeichen selber.</string>
+	<key>KEY_DISPLAYMENT_OPTIONAL</key>
+	<string>Tastenanzeige (Optional)</string>
+	<key>KEY_REPRESENTATION</key>
+	<string>Ausgangszeichen</string>
+	<key>KEY_REPRESENTATION_DETAIL</key>
+	<string>Die Ausgangszeichen sind die Zeichen, die geschrieben werden, wenn die Taste gedrückt wird.</string>
+	<key>LANDSCAPE_KEY_HEIGHT</key>
+	<string>Tastenhöhe Querformat</string>
+	<key>NOCASE_OPTION_DESCRIPTION</key>
+	<string>Funktioniert nur für Sprachen ohne Großbuchstaben wie Arabisch und Hebräisch. Aktiviere diese Option, um die Extrareihe in Großbuchstaben anzuzeigen.</string>
+	<key>NUMBER_ALT_KEYPAD</key>
+	<string>Symbol-Tasten</string>
+	<key>NUMBER_KEYPAD</key>
+	<string>Nummern-Tasten</string>
+	<key>OPTION_FOR_NOCASE_KEYBOARD</key>
+	<string>Option für Tastatur ohne Großbuchstaben</string>
+	<key>PORTRAIT_KEY_HEIGHT</key>
+	<string>Tastenhöhe Hochformat</string>
+	<key>REPRESENTATION_LABEL</key>
+	<string>← Ausgangszeichen</string>
+	<key>RESET_SETTINGS</key>
+	<string>Einstellungen zurücksetzen</string>
+	<key>RESET_SETTINGS_MESSAGE</key>
+	<string>Alle vorgenommenen Einstellungen und personalisierten Tastaturen werden auf die Standardeinstellungen zurückgesetzt. Trotzdem fortfahren?</string>
+	<key>RESPRING_BUTTON</key>
+	<string>Fortfahren</string>
+	<key>RESTART_SPRINGBOARD</key>
+	<string> SpringBoard neu starten</string>
+	<key>RESTART_SPRINGBOARD_MESSAGE</key>
+	<string>Das SpringBoard sollte neu starten, um die vorgenommenen Änderungen zu übernehmen. SpringBoard jetzt neu starten?</string>
+	<key>SHOW_NOCASE_AS_CAPITAL</key>
+	<string>Zeige keine Tasten als Großbuchstaben</string>
+	<key>SMALL_KEYPAD</key>
+	<string>Kleine Tastatur</string>
+	<key>SPECIAL_KEYS_DESCRIPTION</key>
+	<string>Füge Tasten für @left, @right, @up und @down hinzu, um einen Cursorbeweger zu bekommen. Füge @undo oder @redo hinzu, um rückgängig/wiederholen hinzuzufügen.</string>
+	<key>TRANSLATORS</key>
+	<string>Übersetzer</string>
+</dict>
+</plist>

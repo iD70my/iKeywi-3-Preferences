@@ -1,10 +1,10 @@
 {
 	entry = {
-		bundle = iKeywi2;
+		bundle = iKeywi3;
 		cell = PSLinkCell;
-		detail = "iKeywi2ListController";
+		detail = "iKeywi3ListController";
 		icon = "Icon.png";
 		isController = 1;
-		label = "iKeywi 2";
+		label = "iKeywi 3";
 	};
 }

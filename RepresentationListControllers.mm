@@ -1,4 +1,4 @@
-#import "iKeywi2.h"
+#import "iKeywi3.h"
 #import "iKeywiCustomKeysListController.mm"
 
 @interface CapitalRepresentationListController : iKeywiCustomKeysListController 

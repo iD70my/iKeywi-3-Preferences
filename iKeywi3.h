@@ -5,11 +5,11 @@
 #import <AVFoundation/AVPlayerLayer.h>
 #import <AVFoundation/AVAsset.h>
 
-#define PreferenceBundlePath @"/Library/PreferenceBundles/iKeywi2.bundle"
-#define UserDefaultsPlistPath @"/var/mobile/Library/Preferences/tw.hiraku.ikeywi2.plist"
-#define UserDefaultsChangedNotification "tw.hiraku.ikeywi2.update"
+#define PreferenceBundlePath @"/Library/PreferenceBundles/iKeywi3.bundle"
+#define UserDefaultsPlistPath @"/var/mobile/Library/Preferences/tw.hiraku.ikeywi3.plist"
+#define UserDefaultsChangedNotification "tw.hiraku.ikeywi3.update"
 #define iKeywi1Settings @"/var/mobile/Library/Preferences/com.hiraku.ikeywi.plist"
-#define LocalizationsDirectoryPath @"/Library/PreferenceBundles/iKeywi2.bundle"
+#define LocalizationsDirectoryPath @"/Library/PreferenceBundles/iKeywi3.bundle"
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define iKeywiColor UIColorFromRGB(0xFAAB26)
 #define _4inch  [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && [UIScreen mainScreen].bounds.size.height == 568.0
@@ -17,6 +17,9 @@
 #define kCFCoreFoundationVersionNumber_iOS_5_0 675.00
 #define kCFCoreFoundationVersionNumber_iOS_6_0 793.00
 #define kCFCoreFoundationVersionNumber_iOS_7_0 847.20
+
+static CGFloat const kHBFPHeaderTopInset = 64.f;
+static CGFloat const kHBFPHeaderHeight = 210.f;
 //====================================================================================================================
 @interface AVPlayerItem
 + (AVPlayerItem *)playerItemWithAsset:(AVAsset *)asset;

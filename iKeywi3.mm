@@ -3,17 +3,18 @@
 #import <Preferences/Preferences.h>
 #import "RepresentationListControllers.mm"
 #import "DisplaymentListControllers.mm"
-#import "iKeywi2.h"
+#import "iKeywi3.h"
 
-@interface iKeywi2ListController: PSListController
+@interface iKeywi3ListController: PSListController
 {
 	CGRect topFrame;
 	UIImageView* logoImage;
-	UILabel* iKeywiLabel;
+	UILabel* bannerTitle;
 	UILabel* footerLabel;
 	UILabel* titleLabel;
 }
-@property(retain) UIImageView* bannerImage;
+// @property(retain) UIImageView* bannerImage;
+@property(retain) UIView* bannerView;
 @property(retain) NSMutableArray *translationCredits;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion;
@@ -32,24 +33,24 @@
 - (void)drawLogo;
 @end
 
-@implementation iKeywi2ListController
+@implementation iKeywi3ListController
 - (instancetype)init
 {
 	self = [super init];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addRespringButton:) name:@"AddRespringButton" object:nil];
-	NSMutableDictionary* plistDict = [NSDictionary dictionaryWithContentsOfFile:UserDefaultsPlistPath];
-	if ([plistDict objectForKey:@"height"] == nil)
-		[plistDict setObject:@37 forKey:@"height"];
-	if ([plistDict objectForKey:@"landscape_height"] == nil)
-		[plistDict setObject:@28 forKey:@"landscape_height"];
-	[plistDict writeToFile:UserDefaultsPlistPath atomically:YES];
+	// NSMutableDictionary* plistDict = [NSDictionary dictionaryWithContentsOfFile:UserDefaultsPlistPath];
+	// if ([plistDict objectForKey:@"height"] == nil)
+	// 	[plistDict setObject:[NSNumber numberWithInt:37] forKey:@"height"];
+	// if ([plistDict objectForKey:@"landscape_height"] == nil)
+	// 	[plistDict setObject:[NSNumber numberWithInt:28] forKey:@"landscape_height"];
+	// [plistDict writeToFile:UserDefaultsPlistPath atomically:YES];
 
 	self.translationCredits = [NSMutableArray array];
     for (NSString *language in [[self.class translators].allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)])
     {
         PSSpecifier *translator = [PSSpecifier preferenceSpecifierNamed:language target:self set:NULL get:@selector(getTranslatorNameWithSpecifier:) detail:Nil cell:[PSTableCell cellTypeFromString:@"PSTitleValueCell"] edit:Nil];
-        [translator setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+        // [translator setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
         [self.translationCredits addObject:translator];
     }
 	return self;
@@ -152,12 +153,12 @@
         {
         	PSSpecifier *importButton = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"IMPORT_SETTINGS") target:self set:NULL get:NULL detail:Nil cell:[PSTableCell cellTypeFromString:@"PSButtonCell"] edit:Nil];
 	        importButton->action = @selector(importSettingsAlert);
-	        [importButton setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+	        // [importButton setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
 	        [specifiers addObject:importButton];
         }
         
         PSSpecifier *resetButton = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"RESET_SETTINGS") target:self set:NULL get:NULL detail:Nil cell:[PSTableCell cellTypeFromString:@"PSButtonCell"] edit:Nil];
-        [resetButton setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+        // [resetButton setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
         resetButton->action = @selector(resetSettingsAlert);
         [specifiers addObject:resetButton];
 
@@ -169,7 +170,7 @@
         {
         	 PSSpecifier *translationCredits = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"TRANSLATORS") target:self set:NULL get:NULL detail:Nil cell:[PSTableCell cellTypeFromString:@"PSButtonCell"] edit:Nil];
 	        [translationCredits setIdentifier:@"Translators"];
-	        [translationCredits setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+	        // [translationCredits setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
 	        translationCredits->action = @selector(showTranslators);
 	        [specifiers addObject:translationCredits];
         }
@@ -188,18 +189,17 @@
 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
 	if ([window respondsToSelector:@selector(tintColor)])
 		window.tintColor = nil;
-	
 }
 
 - (void)loadView
 {
   	[super loadView];
-
-  	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-  	if (window == nil)
-  		window = [[UIApplication sharedApplication].windows firstObject];
-  	if ([window respondsToSelector:@selector(tintColor)])
-		window.tintColor = UIColorFromRGB(0xFAAB26);
+  	// Window Color. There's a bug on iOS 8
+  // 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
+  // 	if (window == nil)
+  // 		window = [[UIApplication sharedApplication].windows firstObject];
+  // 	if ([window respondsToSelector:@selector(tintColor)])
+		// window.tintColor = iKeywiColor;
 
   	UINavigationItem* navigationItem = self.navigationItem;
   	if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0)
@@ -207,6 +207,14 @@
 
     if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0)
     {
+    	CGFloat headerHeight = 0 + kHBFPHeaderHeight;
+    	CGRect selfFrame = [self.view frame];
+	    _bannerView = [[UIView alloc] init];
+	    _bannerView.frame = CGRectMake(0, -kHBFPHeaderHeight, selfFrame.size.width, headerHeight);
+	    _bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	    [self.table addSubview:_bannerView];
+	    [self.table sendSubviewToBack:_bannerView];
+	    
     	titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,100,40)];
 	    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17]];
 	    [titleLabel setText:@""];
@@ -214,35 +222,44 @@
 	    titleLabel.backgroundColor = [UIColor clearColor];
 	    titleLabel.adjustsFontSizeToFitWidth = YES;
 	    navigationItem.titleView = titleLabel;
-	    titleLabel.textColor = iKeywiColor;
+	    // titleLabel.textColor = iKeywiColor;
 	    [titleLabel setAlpha:0];
 
-	    topFrame = CGRectMake(0, -150, 320, 150);
-	  	self.bannerImage = [[UIImageView alloc] initWithImage:[self imageForSize:CGSizeMake(topFrame.size.width,topFrame.size.height) withSelector:@selector(drawBanner)]];
-	  	[self.bannerImage setFrame:topFrame];
-	  	[self.view addSubview:self.bannerImage];
-	  	[self.view sendSubviewToBack:self.bannerImage];
+	    // CGRect tableFrame = [self.table frame];
+	    topFrame = CGRectMake(0, -kHBFPHeaderHeight, 414, kHBFPHeaderHeight);
+	  	[_bannerView setBackgroundColor:[UIColor colorWithPatternImage:[self imageForSize:CGSizeMake(topFrame.size.width,topFrame.size.height) withSelector:@selector(drawBanner)]]];
 	    
 	    logoImage = [[UIImageView alloc] initWithImage:[self imageForSize:CGSizeMake(50,50) withSelector:@selector(drawLogo)]];
-	    [self.bannerImage addSubview:logoImage];
-	  
-	    iKeywiLabel = [[UILabel alloc] initWithFrame:CGRectMake(106,topFrame.size.height/2,200,80)];
-	    iKeywiLabel.text = @"iKeywi 2"; 
-	    [iKeywiLabel setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:52]];
-		iKeywiLabel.textColor = [UIColor whiteColor];
-	    [self.bannerImage addSubview:iKeywiLabel];
-	    //iKeywiLabel.textAlignment = NSTextAlignmentRight;
+	    [_bannerView addSubview:logoImage];
+	    [logoImage setTranslatesAutoresizingMaskIntoConstraints:NO];
+		[_bannerView addConstraint:[NSLayoutConstraint constraintWithItem:logoImage attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bannerView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:-95.0f]];
+		[_bannerView addConstraint:[NSLayoutConstraint constraintWithItem:logoImage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_bannerView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:20.0f]];
+	    // [self.bannerImage addSubview:logoImage];
+	  	
+	  	// WithFrame:CGRectMake(106,topFrame.size.height/2,200,80)
+	    bannerTitle = [[UILabel alloc] init];
+	    bannerTitle.text = @"iKeywi 3"; 
+	    [bannerTitle setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:52]];
+		bannerTitle.textColor = [UIColor whiteColor];
+		[_bannerView addSubview:bannerTitle];
+	    [bannerTitle setTranslatesAutoresizingMaskIntoConstraints:NO];
+		[_bannerView addConstraint:[NSLayoutConstraint constraintWithItem:bannerTitle attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bannerView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:30.0f]];
+		[_bannerView addConstraint:[NSLayoutConstraint constraintWithItem:bannerTitle attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_bannerView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:20.0f]];
+	    bannerTitle.textAlignment = NSTextAlignmentRight;
 
-	    footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,topFrame.size.height/2+40,320,50)];
+	    footerLabel = [[UILabel alloc] init];
 	    footerLabel.text = iKeywiLocalizedString(@"CUSTOMIZABLE_EXTRA_KEYS_FOR_ALL_LANGUAGES"); 
 	    [footerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:11]];
 		footerLabel.textColor = [UIColor whiteColor];
 		footerLabel.alpha = 0.7;
-		footerLabel.textAlignment = NSTextAlignmentCenter;
-	    [self.bannerImage addSubview:footerLabel];
+		[_bannerView addSubview:footerLabel];
+	    [footerLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+		[_bannerView addConstraint:[NSLayoutConstraint constraintWithItem:footerLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bannerView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0f]];
+		[_bannerView addConstraint:[NSLayoutConstraint constraintWithItem:footerLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_bannerView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:60.0f]];
+	    footerLabel.textAlignment = NSTextAlignmentCenter;
 
-	    [self.table setContentInset:UIEdgeInsetsMake(150,0,0,0)];
-	    [self.table setContentOffset:CGPointMake(0, -150)];
+	    [self.table setContentInset:UIEdgeInsetsMake(kHBFPHeaderHeight-kHBFPHeaderTopInset,0,0,0)];
+	    [self.table setContentOffset:CGPointMake(0, -kHBFPHeaderHeight+kHBFPHeaderTopInset)];
 	}
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:iKeywi1Settings] && 
@@ -254,32 +271,32 @@
     }
 }
 
-// - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-// {
-// 	CGFloat scrollOffset = scrollView.contentOffset.y;
-//     topFrame = CGRectMake(0, scrollOffset, 320, -scrollOffset);
-//     //NSLog(@"%f",scrollOffset);
-//     if (scrollOffset < -213)
-//     {
-//     	self.bannerImage.image = [self imageForSize:CGSizeMake(topFrame.size.width,topFrame.size.height) withSelector:@selector(drawBanner)];
-// 	    [self.bannerImage setFrame:topFrame];
-// 	    [logoImage setFrame:CGRectMake(42,topFrame.size.height/2,50,50)];
-// 	    [iKeywiLabel setFrame:CGRectMake(106,topFrame.size.height/2-14,200,80)];
-// 	    [footerLabel setFrame:CGRectMake(0,topFrame.size.height/2+35,320,50)];
-// 	    footerLabel.textAlignment = NSTextAlignmentCenter;
-//     }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	CGFloat scrollOffset = scrollView.contentOffset.y;
+    topFrame = CGRectMake(0, scrollOffset, 414, -scrollOffset);
+    //NSLog(@"%f",scrollOffset);
+    if (scrollOffset < -213)
+    {
+    	// self.bannerImage.image = [self imageForSize:CGSizeMake(topFrame.size.width,topFrame.size.height) withSelector:@selector(drawBanner)];
+	    // [self.bannerImage setFrame:topFrame];
+	    // [logoImage setFrame:CGRectMake(42,topFrame.size.height/2,50,50)];
+	    // [bannerTitle setFrame:CGRectMake(106,topFrame.size.height/2-14,200,80)];
+	    // [footerLabel setFrame:CGRectMake(0,topFrame.size.height/2+35,320,50)];
+	    // footerLabel.textAlignment = NSTextAlignmentCenter;
+    }
     
-//     if (scrollOffset > -167 && scrollOffset < -116 && scrollOffset != -150)
-//     {
-//     	[titleLabel setText:@"iKeywi 2"];
-//     	float alphaDegree = -116 - scrollOffset;
-//     	[titleLabel setAlpha:1/alphaDegree];
-//     }
-//     else if ( scrollOffset >= -116)
-//     	[titleLabel setAlpha:1];
-//    	else if (scrollOffset < -167)
-// 	   	[titleLabel setAlpha:0];
-// }
+    if (scrollOffset > -167 && scrollOffset < -116 && scrollOffset != -150)
+    {
+    	[titleLabel setText:@"iKeywi 3"];
+    	float alphaDegree = -116 - scrollOffset;
+    	[titleLabel setAlpha:1/alphaDegree];
+    }
+    else if ( scrollOffset >= -116)
+    	[titleLabel setAlpha:1];
+   	else if (scrollOffset < -167)
+	   	[titleLabel setAlpha:0];
+}
 //=============================================================================
 - (void)shareiKeywi
 {
@@ -340,7 +357,7 @@
     	[self importSettings];
 	    [self performSelector:@selector(respring) withObject:self afterDelay:2.0];   
 	}
-	titleLabel.textColor = iKeywiColor;
+	// titleLabel.textColor = iKeywiColor;
 }
 
 - (void)showLoadingView
@@ -461,7 +478,8 @@
              @"简体中文": @"@chengggggg",
              @"Polski":@"@andrzejf1994",
              @"Русский":@"@yablyktube",
-             @"Español":@"@TheDarcker"
+             @"Español":@"@TheDarcker",
+             @"Deutsch":@"@aaronaverage"
          	};
 }
 //=============================================================================
