@@ -31,6 +31,7 @@ static CGFloat const kHBFPHeaderHeight = 210.f;
 
 @interface PSListController (iKeywi)
 - (void)loadView;
+- (void)viewWillAppear:(BOOL)animated;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
@@ -38,10 +39,10 @@ static CGFloat const kHBFPHeaderHeight = 210.f;
 @property(readonly, assign, nonatomic) UILabel* textLabel;
 @end
 
-@interface iKeywiTineButtonCell : PSTableCell
+@interface iKeywiTintButtonCell : PSTableCell
 @end
 
-@implementation iKeywiTineButtonCell
+@implementation iKeywiTintButtonCell
 - (void)layoutSubviews
 {
 	[super layoutSubviews];

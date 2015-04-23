@@ -17,7 +17,6 @@
 @property(retain) UIView* bannerView;
 @property(retain) NSMutableArray *translationCredits;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion;
 - (void)addRespringButton:(NSNotification *)notification;
 - (void)showLoadingView;
 - (void)respring;
@@ -131,6 +130,26 @@
 	        [specifiers addObject:landscapeHeightSlider];
         }
 
+        [specifiers addObject:[PSSpecifier emptyGroupSpecifier]];
+        PSSpecifier *applistSpecifier = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"DISABLE_IN_APPS") target:self set:nil get:nil detail:nil cell:PSLinkCell edit:nil];
+        [applistSpecifier setProperty:@"/var/mobile/Library/Preferences/tw.hiraku.ikeywi3.plist" forKey:@"ALSettingsPath"];
+        [applistSpecifier setProperty:@NO forKey:@"ALSettingsDefaultValue"];
+        [applistSpecifier setProperty:@"1" forKey:@"ALAllowsSelection"];
+        [applistSpecifier setProperty:@"Disabled-" forKey:@"ALSettingsKeyPrefix"];
+        [applistSpecifier setProperty:@[@{	@"cell-class-name" 		: @"ALCheckCell", 
+        									@"icon-size" 			: @"29", 
+        									@"predicate" 			: @"isSystemApplication = TRUE", 
+        									@"suppress-hidden-apps" : @"1", 
+        									@"title" 				: @"System Applications"},
+        								@{	@"cell-class-name" 		: @"ALCheckCell", 
+        									@"icon-size" 			: @"29", 
+        									@"predicate" 			: @"isSystemApplication = FALSE", 
+        									@"suppress-hidden-apps" : @"1", 
+        									@"title" 				: @"User Applications"}] forKey:@"ALSectionDescriptors"];
+        [applistSpecifier setProperty:@"/System/Library/PreferenceBundles/AppList.bundle" forKey:@"lazy-bundle"];
+        applistSpecifier->action = @selector(lazyLoadBundle:);
+        [specifiers addObject:applistSpecifier];
+
         NSDictionary* GlobalPreferences = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/User/Library/Preferences/.GlobalPreferences.plist"];
         NSArray *AppleKeyboards = [GlobalPreferences objectForKey:@"AppleKeyboards"];
         for (NSString* keyboard in AppleKeyboards)
@@ -153,12 +172,12 @@
         {
         	PSSpecifier *importButton = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"IMPORT_SETTINGS") target:self set:NULL get:NULL detail:Nil cell:[PSTableCell cellTypeFromString:@"PSButtonCell"] edit:Nil];
 	        importButton->action = @selector(importSettingsAlert);
-	        // [importButton setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+	        [importButton setProperty:[iKeywiTintButtonCell class] forKey:@"cellClass"];
 	        [specifiers addObject:importButton];
         }
         
         PSSpecifier *resetButton = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"RESET_SETTINGS") target:self set:NULL get:NULL detail:Nil cell:[PSTableCell cellTypeFromString:@"PSButtonCell"] edit:Nil];
-        // [resetButton setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+        [resetButton setProperty:[iKeywiTintButtonCell class] forKey:@"cellClass"];
         resetButton->action = @selector(resetSettingsAlert);
         [specifiers addObject:resetButton];
 
@@ -170,7 +189,7 @@
         {
         	 PSSpecifier *translationCredits = [PSSpecifier preferenceSpecifierNamed:iKeywiLocalizedString(@"TRANSLATORS") target:self set:NULL get:NULL detail:Nil cell:[PSTableCell cellTypeFromString:@"PSButtonCell"] edit:Nil];
 	        [translationCredits setIdentifier:@"Translators"];
-	        // [translationCredits setProperty:[iKeywiTineButtonCell class] forKey:@"cellClass"];
+	        [translationCredits setProperty:[iKeywiTintButtonCell class] forKey:@"cellClass"];
 	        translationCredits->action = @selector(showTranslators);
 	        [specifiers addObject:translationCredits];
         }
@@ -184,22 +203,33 @@
 	return _specifiers;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
 	if ([window respondsToSelector:@selector(tintColor)])
 		window.tintColor = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    if (window == nil)
+        window = [[UIApplication sharedApplication].windows firstObject];
+    if ([window respondsToSelector:@selector(tintColor)])
+        window.tintColor = iKeywiColor;
+}
+
+
 - (void)loadView
 {
   	[super loadView];
   	// Window Color. There's a bug on iOS 8
-  // 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-  // 	if (window == nil)
-  // 		window = [[UIApplication sharedApplication].windows firstObject];
-  // 	if ([window respondsToSelector:@selector(tintColor)])
-		// window.tintColor = iKeywiColor;
+  	UIWindow *window = [UIApplication sharedApplication].keyWindow;
+  	if (window == nil)
+  		window = [[UIApplication sharedApplication].windows firstObject];
+  	if ([window respondsToSelector:@selector(tintColor)])
+		window.tintColor = iKeywiColor;
 
   	UINavigationItem* navigationItem = self.navigationItem;
   	if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0)
@@ -222,7 +252,7 @@
 	    titleLabel.backgroundColor = [UIColor clearColor];
 	    titleLabel.adjustsFontSizeToFitWidth = YES;
 	    navigationItem.titleView = titleLabel;
-	    // titleLabel.textColor = iKeywiColor;
+	    titleLabel.textColor = iKeywiColor;
 	    [titleLabel setAlpha:0];
 
 	    // CGRect tableFrame = [self.table frame];
@@ -307,7 +337,11 @@
 		activityViewController.excludedActivityTypes = @[UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop];
 	else
 		activityViewController.excludedActivityTypes = @[UIActivityTypePrint,UIActivityTypeCopyToPasteboard];
+
+	#pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wobjc-method-access"
 	[self presentViewController:activityViewController animated:YES completion:nil];
+	#pragma clang diagnostic pop
 }
 
 
@@ -346,7 +380,7 @@
 	}
 	else if ([alertView.title isEqualToString:iKeywiLocalizedString(@"FOUND_IKEYWI_SETTINGS")] && buttonIndex != 1)
     {	
-    	NSMutableDictionary* plistDict = [NSDictionary dictionaryWithContentsOfFile:UserDefaultsPlistPath];
+    	NSMutableDictionary* plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:UserDefaultsPlistPath];
     	[plistDict setObject:@NO forKey:@"showImportAlert"];
     	[plistDict writeToFile:UserDefaultsPlistPath atomically:YES];
 	}
@@ -357,7 +391,7 @@
     	[self importSettings];
 	    [self performSelector:@selector(respring) withObject:self afterDelay:2.0];   
 	}
-	// titleLabel.textColor = iKeywiColor;
+	titleLabel.textColor = iKeywiColor;
 }
 
 - (void)showLoadingView
@@ -410,7 +444,7 @@
 - (void)importSettings
 {
  	NSDictionary* iKeywi1Plist = [NSDictionary dictionaryWithContentsOfFile:iKeywi1Settings];
- 	NSMutableDictionary* plistDict = [NSDictionary dictionaryWithContentsOfFile:UserDefaultsPlistPath];
+ 	NSMutableDictionary* plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:UserDefaultsPlistPath];
  	
  	for (int i = 0; i < 12; ++i)
  	{

@@ -5,6 +5,7 @@
 	CONFIRM = Confirm;
 	"CUSTOMIZABLE_EXTRA_KEYS_FOR_ALL_LANGUAGES" = "Customizable Extra Keys For All Languages";
 	"DISPLAYMENT_LABEL" = "\U2190 Key Displayment";
+	"DISABLE_IN_APPS" = "Disable In Apps";
 	ENABLED = Enabled;
 	"FOUND_IKEYWI_SETTINGS" = "Found iKeywi 1 Settings";
 	"FOUND_IKEYWI_SETTINGS_MESSAGE" = "iKeywi 1 settings file exists. Would you like to import it now?";

@@ -14,7 +14,8 @@
     BOOL isRepresentationLabel;
     NSString* endKey;
 }
-- (void)viewDidAppear:(BOOL)animated;
+// - (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
 - (void)addModalBackground;
 - (void)playMovies;
 - (void)closeVideo;
@@ -26,13 +27,13 @@
 
 @implementation iKeywiCustomKeysListController : PSListController 
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     window = [UIApplication sharedApplication].keyWindow;
     if (window == nil)
         window = [[UIApplication sharedApplication].windows firstObject];
-    // if ([window respondsToSelector:@selector(tintColor)])
-        // window.tintColor = iKeywiColor;
+    if ([window respondsToSelector:@selector(tintColor)])
+        window.tintColor = iKeywiColor;
 }
 
 - (void)loadView
@@ -49,7 +50,7 @@
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.adjustsFontSizeToFitWidth = YES;
         navigationItem.titleView = titleLabel;
-        // titleLabel.textColor = iKeywiColor;
+        titleLabel.textColor = iKeywiColor;
     }
     
     navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:iKeywiLocalizedString(@"HELP") style:UIBarButtonItemStyleBordered target:self action:@selector(addModalBackground)]; 

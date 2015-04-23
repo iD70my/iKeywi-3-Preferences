@@ -14,6 +14,8 @@
 	<string>Veränderbare Zusatztasten für alle Sprachen</string>
 	<key>DISPLAYMENT_LABEL</key>
 	<string>← Tastenanzeige</string>
+	<key>DISABLE_IN_APPS</key>
+	<string>Disable in Apps</string>
 	<key>ENABLED</key>
 	<string>Aktiviert</string>
 	<key>FOUND_IKEYWI_SETTINGS</key>
