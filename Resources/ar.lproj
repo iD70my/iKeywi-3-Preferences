@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APPLY</key>
+	<string>تطبيق</string>
+	<key>CANCEL</key>
+	<string>إلغاء</string>
+	<key>CAPITAL_KEYPAD</key>
+	<string>لوحة الأحرف الكبيرة</string>
+	<key>CONFIRM</key>
+	<string>تأكيد</string>
+	<key>CUSTOMIZABLE_EXTRA_KEYS_FOR_ALL_LANGUAGES</key>
+	<string>لوحة مفاتيح إضافية قابلة للتخصيص لجميع اللغات</string>
+	<key>DISABLE_IN_APPS</key>
+	<string>تعطيل في التطبيقات</string>
+	<key>DISPLAYMENT_LABEL</key>
+	<string>← Key Displayment</string>
+	<key>ENABLED</key>
+	<string>تفعيل</string>
+	<key>FOUND_IKEYWI_SETTINGS</key>
+	<string>وجد إعداد iKeywi 1</string>
+	<key>FOUND_IKEYWI_SETTINGS_MESSAGE</key>
+	<string>يوجد إعداد iKeywi 1 . هل ترغب في استيراده الآن؟</string>
+	<key>HELP</key>
+	<string>مساعدة</string>
+	<key>IKEYWI_SHARE_TEXT</key>
+	<string>أنا أستخدم #iKeywi 3 لإضافة لوحة مفاتيح إضافية قابلة للتخصيص للآي فون ، تعريب @iD70my </string>
+	<key>IMPORT</key>
+	<string>إستيراد</string>
+	<key>IMPORT_SETTINGS</key>
+	<string>إعدادات الإستيراد</string>
+	<key>IMPORT_SETTINGS_MESSAGE</key>
+	<string>سيتم استيراد جميع المفاتيح المخصصة والإعدادات من iKeywi 1. هل ترغب في الاستمرار؟</string>
+	<key>KEYS_ONLY_AVAILABLE_FOR_SOME_LANG</key>
+	<string>مفتاح 11 و 12 متوفرة في بعض اللغات فقط.</string>
+	<key>KEY_DISPLAYMENT_DETAIL</key>
+	<string>صورة المفتاح ، هو النص الذي يظهر على المفتاح. القيمة الافتراضية هي نفس وضيفةالمفتاح.</string>
+	<key>KEY_DISPLAYMENT_OPTIONAL</key>
+	<string>صورة المفتاح (إختياري)</string>
+	<key>KEY_REPRESENTATION</key>
+	<string>المفتاح الرئيسي</string>
+	<key>KEY_REPRESENTATION_DETAIL</key>
+	<string>المفتاح الرئيسي ، هو النص الذي سوف يكون مدخلا بعد النقر فوق المفتاح.</string>
+	<key>LANDSCAPE_KEY_HEIGHT</key>
+	<string>حجم المفتاح للوحة العرضية</string>
+	<key>NOCASE_OPTION_DESCRIPTION</key>
+	<string>يعمل للغات التي لا تستخدم زر الشفت، مثل العربية والعبرية. تمكين هذا الخيار لجعل صف المفاتيح المخصصة الإضافية كما لوحة المفاتيح بالشفت أو بدونه.</string>
+	<key>NUMBER_ALT_KEYPAD</key>
+	<string>لوحة الرموز</string>
+	<key>NUMBER_KEYPAD</key>
+	<string>لوحة الأرقام</string>
+	<key>OPTION_FOR_NOCASE_KEYBOARD</key>
+	<string>هذا الخيار للوحات التي لا تستخدم زر الشفت</string>
+	<key>PORTRAIT_KEY_HEIGHT</key>
+	<string>حجم المفتاح للوحة الأفقية</string>
+	<key>REPRESENTATION_LABEL</key>
+	<string>← Key Representation</string>
+	<key>RESET_SETTINGS</key>
+	<string>إعادة تعيين الإعدادات</string>
+	<key>RESET_SETTINGS_MESSAGE</key>
+	<string>سيتم إعادة تعيين كافة الإعدادات والمفاتيح المخصصة إلى القيمة الافتراضية. هل ترغب في الاستمرار؟</string>
+	<key>RESPRING_BUTTON</key>
+	<string>إستمرار</string>
+	<key>RESTART_SPRINGBOARD</key>
+	<string>إعادة تشغيل</string>
+	<key>RESTART_SPRINGBOARD_MESSAGE</key>
+	<string>لتطبيق التغييرات يجب إعادة تشغيل الجهاز ‫.‬ هل ترغب في إعادة التشغيل الأن؟</string>
+	<key>SHOW_NOCASE_AS_CAPITAL</key>
+	<string>أظهر الصف العلوي بتثبيت زر الشفت</string>
+	<key>SMALL_KEYPAD</key>
+	<string>لوحة الأحرف الصغيرة</string>
+	<key>SPECIAL_KEYS_DESCRIPTION</key>
+	<string>ضع المفاتيح left, @right, @up@ و down@  لإضافة إنتقال المؤشر，
+ @undo أو @redo ولإضافة وظيفة التراجع</string>
+	<key>TRANSLATORS</key>
+	<string>المترجمين</string>
+</dict>
+</plist>
